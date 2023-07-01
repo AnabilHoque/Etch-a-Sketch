@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    background-color: darkcyan;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    max-width: 512px;
+    flex-wrap: wrap;
+}
+
+.container div {
+    height: 32px;
+    width: 32px;
+    background-color: white;
+    border: 2px solid red;
+}
