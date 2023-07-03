@@ -12,7 +12,7 @@ function getAllDivs() {
 
 function changeDivColorTo(e, color) {
     const currDiv = e.target;
-    currDiv.setAttribute("style", `background-color:${color}`);
+    currDiv.setAttribute("style", `background-color: ${color};`);
 }
 
 function clearAllDivs(e) {
@@ -22,9 +22,16 @@ function clearAllDivs(e) {
     })
 }
 
+function getRandomNumBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 function run() {
     // mousedown?
     let mousedownValue = false;
+
+    // rainbow mode?
+    let rainbowMode = false;
 
     // color?
     let currentColor = "black";
@@ -36,8 +43,14 @@ function run() {
     // toggle between mousedown and mouseup
     arrDivs.forEach(div => div.addEventListener("mousedown", e => {
         mousedownValue = true;
-        changeDivColorTo(e, currentColor);
+        if (rainbowMode) {
+            const randColor = `rgb(${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)})`;
+            changeDivColorTo(e, randColor);
+        } else {
+            changeDivColorTo(e, currentColor);
+        }
     }));
+
     arrDivs.forEach(div => div.addEventListener("mouseup", e => {
         mousedownValue = false;
     }));
@@ -45,7 +58,12 @@ function run() {
     // color
     arrDivs.forEach(div => div.addEventListener("mouseenter", e => {
         if (mousedownValue) {
-            changeDivColorTo(e, currentColor);
+            if (rainbowMode) {
+                const randColor = `rgb(${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)})`;
+                changeDivColorTo(e, randColor);
+            } else {
+                changeDivColorTo(e, currentColor);
+            }
         }
     }));
 
@@ -58,11 +76,18 @@ function run() {
     const blackButton = document.querySelector("#black-button");
     blackButton.addEventListener("click", e => {
         currentColor = "black";
+        rainbowMode = false;
+    });
+
+    const rainbowButton = document.querySelector("#rainbow-button");
+    rainbowButton.addEventListener("click", e => {
+        rainbowMode = true;
     });
 
     const eraserButton = document.querySelector("#eraser-button");
     eraserButton.addEventListener("click", e => {
         currentColor = "white";
+        rainbowMode = false;
     });
 
     const clearButton = document.querySelector("#clear-button");
