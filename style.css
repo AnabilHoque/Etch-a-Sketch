@@ -1,3 +1,5 @@
+/* General Properties */
+
 * {
     box-sizing: border-box;
 }
@@ -8,9 +10,44 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
-.container {
+/* Header */
+h1 {
+    font-size: 48px;
+}
+
+/* Main Content */
+
+main {
+    flex: 1;
+    display: flex;
+    gap: 16px;
+}
+
+main .options-area {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+main .container {
+    display: flex;
+    max-height: 720px;
+    max-width: 720px;
+    flex-wrap: wrap;
+}
+
+main .container div {
+    background-color: white;
+    border: 1px solid rgb(49, 40, 40);
+    height: 45px;
+    width: 45px;
+}
+
+
+/*.container {
     display: flex;
     max-width: 512px;
     flex-wrap: wrap;
@@ -20,5 +57,10 @@ body {
     height: 32px;
     width: 32px;
     background-color: white;
-    border: 2px solid red;
+    border: 1px solid rgb(49, 40, 40);
+} */
+
+/* Footer */
+footer p {
+    font-size: 20px;
 }
