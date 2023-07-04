@@ -36,9 +36,27 @@ function run() {
     // color?
     let currentColor = "black";
 
+    let currentGridSize = 16;
+
     // set up grid
-    createDivsGrid(256);
+    createDivsGrid(currentGridSize*currentGridSize);
     const arrDivs = getAllDivs();
+
+    // color set up
+    pickColorInput = document.getElementsByName("pick-color")[0];
+    pickColorInput.addEventListener("input", e => {
+        rainbowMode = false;
+        currentColor = e.target.value;
+    });
+
+    // grid size set up
+    selectGridSize = document.getElementsByName("grid-range")[0];
+    selectGridSize.addEventListener("input", e => {
+        spansGridSize = Array.from(document.querySelectorAll(".grid-size-display"));
+        spansGridSize.forEach(spanGridSize => {
+            spanGridSize.textContent = e.target.value;
+        });
+    });
 
     // toggle between mousedown and mouseup
     arrDivs.forEach(div => div.addEventListener("mousedown", e => {

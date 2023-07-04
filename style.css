@@ -46,19 +46,10 @@ main .container div {
     width: 45px;
 }
 
-
-/*.container {
-    display: flex;
-    max-width: 512px;
-    flex-wrap: wrap;
+.pick-color-container label {
+    font-size: 16px;
+    font-weight: bold;
 }
-
-.container div {
-    height: 32px;
-    width: 32px;
-    background-color: white;
-    border: 1px solid rgb(49, 40, 40);
-} */
 
 /* Footer */
 footer p {
