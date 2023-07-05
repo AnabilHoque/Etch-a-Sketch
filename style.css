@@ -10,17 +10,21 @@ html {
 
 body {
     margin: 0px;
-    background-color: darkcyan;
+    background-color: rgb(137, 168, 168);
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-items: center;
+    color: #1c1616;;
 }
 
 /* Header */
 
 h1 {
-    font-size: 48px;
-    text-align: center;
+    font-size: 64px;
+    margin: 0px;
+    padding: 12px 0px;
 }
 
 /* Main Content */
@@ -28,32 +32,56 @@ h1 {
 main {
     flex: 1;
     display: flex;
-    gap: 16px;
-    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
     align-items: center;
 }
 
-main .options-area {
+main .top-area-options {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    gap: 12px;
+    padding: 12px 0px;
+}
+
+.pick-color-container, .select-btn, .slider-container {
+    border: 3px solid rgb(49, 40, 40);
+    border-radius: 12px;
+    background-color: rgb(165, 165, 165);
+    padding: 5px 12px;
+}
+
+.pick-color-container:hover, .select-btn:hover, .slider-container:hover {
+    transform: scale(1.01);
+    border-color: rgb(96, 96, 96);
+    box-shadow: 0 0 1rem rgb(131, 126, 126);
+}
+
+.pick-color-container label, .slider-container label {
+    font-size: 16px;
+}
+
+.select-btn {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
+    color: #1c1616;
+    font-size: 16px;
 }
 
 main .container {
     display: flex;
-    max-height: 500px;
-    max-width: 500px;
+    max-height: 700px;
+    max-width: 700px;
     flex-wrap: wrap;
 }
 
 main .container div {
     background-color: white;
-    border: 1px solid rgb(49, 40, 40);
+    border: 1.15px solid rgb(49, 40, 40);
 }
 
-.pick-color-container label {
-    font-size: 16px;
-    font-weight: bold;
+.bottom-area-options {
+    padding-top: 12px;
+    display: flex;
+    gap: 12px;
 }
 
 /* Footer */
@@ -64,6 +92,8 @@ footer {
 
 footer p {
     font-size: 20px;
+    margin: 0px;
+    padding: 8px 0px;
 }
 
 @media only screen and (max-width: 770px) {

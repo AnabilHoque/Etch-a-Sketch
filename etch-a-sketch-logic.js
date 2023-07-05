@@ -1,7 +1,7 @@
 let currentColor = "black";
 let rainbowMode = false;
 let mousedownValue = false;
-let maxWidth = 500;
+let maxWidth = 700;
 
 function createGrid(numberOfDivsOneAxis) {
     // could have computed maxWidth directly
@@ -88,7 +88,7 @@ function fixDivsDragStart(currentDivs) {
     // fix ondragstart behaviour
     currentDivs.forEach(div => div.addEventListener("dragstart", e => {
         e.preventDefault();
-    }))
+    }));
 }
 
 function initialiseDivsEventListeners() {
@@ -104,6 +104,12 @@ function clearAllDivs() {
     allDivs.forEach(div => {
         div.style["background-color"] = "white";
     });
+}
+
+function resizeContainer(gridSize) {
+    const container = document.querySelector(".container");
+    container.style.maxWidth = `${gridSize}px`;
+    container.style.maxHeight = `${gridSize}px`;
 }
 
 function resizeDivs(numberOfDivsOneAxis) {
@@ -169,11 +175,21 @@ function run() {
     // window resize
     window.addEventListener("resize", e => {
         //console.log(e.target.outerWidth);
-        if (e.target.outerWidth < 770) {
-            maxWidth = 300;
+        if (e.target.outerWidth < 690) {
+            maxWidth = 350;
+            resizeContainer(maxWidth);
+            resizeDivs(currentGridSize);
+        } else if (e.target.outerWidth < 780) {
+            maxWidth = 450;
+            resizeContainer(maxWidth);
+            resizeDivs(currentGridSize);
+        } else if (e.target.outerWidth < 980) {
+            maxWidth = 550;
+            resizeContainer(maxWidth);
             resizeDivs(currentGridSize);
         } else {
-            maxWidth = 500;
+            maxWidth = 700;
+            resizeContainer(maxWidth);
             resizeDivs(currentGridSize);
         }
     });

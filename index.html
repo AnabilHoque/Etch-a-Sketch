@@ -11,21 +11,23 @@
         <h1>Etch-a-Sketch</h1>
     </header>
     <main>
-        <div class="options-area">
-            <div class="slide-container">
+        <div class="top-area-options">
+            <div class="pick-color-container">
+                <label for="pick-color">Pick Colour:</label>
+                <input type="color" id="pick-color" name="pick-color" value="#000000">
+            </div>
+            <button class="select-btn" id="black-button" type="button">Black</button>
+            <button class="select-btn" id="rainbow-button" type="button">Rainbow</button>
+            <button class="select-btn" id="eraser-button" type="button">Eraser</button>
+        </div>
+        <div class="container"></div>
+        <div class="bottom-area-options">
+            <div class="slider-container">
                 <label for="grid-range">Grid Size: <span class="grid-size-display">16</span>&times;<span class="grid-size-display">16</span></label>
                 <input type="range" min="1" max="60" id="grid-range" name="grid-range" value="16">
             </div>
-            <div class="pick-color-container">
-                <label for="pick-color">Select your favorite color:</label>
-                <input type="color" id="pick-color" name="pick-color" value="#000000">
-            </div>
-            <button id="black-button" type="button">Black</button>
-            <button id="rainbow-button" type="button">Rainbow Mode</button>
-            <button id="eraser-button" type="button">Eraser</button>
-            <button id="clear-button" type="button">Clear</button>
+            <button class="select-btn" id="clear-button" type="button">Clear</button>
         </div>
-        <div class="container"></div>
     </main>
     <footer>
         <p>Copyright &copy; Anabil Hoque</p>
