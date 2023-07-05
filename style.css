@@ -95,10 +95,3 @@ footer p {
     margin: 0px;
     padding: 8px 0px;
 }
-
-@media only screen and (max-width: 770px) {
-    main .container {
-        max-height: 300px;
-        max-width: 300px;
-    }
-}
