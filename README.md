@@ -1,2 +1,2 @@
 # Etch-a-Sketch
-Etch-a-Sketch page for the [Odin Project](https://www.theodinproject.com/lessons/foundations-etch-a-sketch).
+Etch-a-Sketch page for the [Odin Project](https://www.theodinproject.com/lessons/foundations-etch-a-sketch). Have a look at the [Etch-a-Sketch](https://anabilhoque.github.io/Etch-a-Sketch/) page.
