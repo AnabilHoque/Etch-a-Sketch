@@ -4,18 +4,23 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     margin: 0px;
     background-color: darkcyan;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 /* Header */
+
 h1 {
     font-size: 48px;
+    text-align: center;
 }
 
 /* Main Content */
@@ -24,6 +29,8 @@ main {
     flex: 1;
     display: flex;
     gap: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 main .options-area {
@@ -34,16 +41,14 @@ main .options-area {
 
 main .container {
     display: flex;
-    max-height: 720px;
-    max-width: 720px;
+    max-height: 500px;
+    max-width: 500px;
     flex-wrap: wrap;
 }
 
 main .container div {
     background-color: white;
     border: 1px solid rgb(49, 40, 40);
-    height: 45px;
-    width: 45px;
 }
 
 .pick-color-container label {
@@ -52,6 +57,18 @@ main .container div {
 }
 
 /* Footer */
+
+footer {
+    margin-top: auto;
+}
+
 footer p {
     font-size: 20px;
+}
+
+@media only screen and (max-width: 770px) {
+    main .container {
+        max-height: 300px;
+        max-width: 300px;
+    }
 }

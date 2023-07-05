@@ -1,16 +1,19 @@
 let currentColor = "black";
 let rainbowMode = false;
 let mousedownValue = false;
+let maxWidth = 500;
 
 function createGrid(numberOfDivsOneAxis) {
+    // could have computed maxWidth directly
+    // const maxWidthpx = window.getComputedStyle(container).maxWidth;
+    // const maxWidth = Number(maxWidthpx.split("p")[0]);
+
     const container = document.querySelector(".container");
-    const maxWidthpx = window.getComputedStyle(container).maxWidth;
-    const maxWidth = Number(maxWidthpx.split("p")[0]);
     for (let i = 0; i < numberOfDivsOneAxis*numberOfDivsOneAxis; i++) {
         const div = document.createElement("div");
-        container.appendChild(div);
         div.style.height = `${maxWidth/numberOfDivsOneAxis}px`;
         div.style.width = `${maxWidth/numberOfDivsOneAxis}px`;
+        container.appendChild(div);
     }
 }
 
@@ -100,7 +103,15 @@ function clearAllDivs() {
     const allDivs = getDivsInContainer();
     allDivs.forEach(div => {
         div.style["background-color"] = "white";
-    })
+    });
+}
+
+function resizeDivs(numberOfDivsOneAxis) {
+    const allDivs = getDivsInContainer();
+    allDivs.forEach(div => {
+        div.style.height = `${maxWidth/numberOfDivsOneAxis}px`;
+        div.style.width = `${maxWidth/numberOfDivsOneAxis}px`;
+    });
 }
 
 function run() {
@@ -154,6 +165,18 @@ function run() {
     // clear the grid
     const clearButton = document.querySelector("#clear-button");
     clearButton.addEventListener("click", clearAllDivs);
+
+    // window resize
+    window.addEventListener("resize", e => {
+        //console.log(e.target.outerWidth);
+        if (e.target.outerWidth < 770) {
+            maxWidth = 300;
+            resizeDivs(currentGridSize);
+        } else {
+            maxWidth = 500;
+            resizeDivs(currentGridSize);
+        }
+    });
 }
 
 run();
