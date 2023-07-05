@@ -1,65 +1,57 @@
-function createDivsGrid(numberOfDivs) {
+let currentColor = "black";
+let rainbowMode = false;
+let mousedownValue = false;
+
+function createGrid(numberOfDivsOneAxis) {
     const container = document.querySelector(".container");
-    for (let i = 0; i < numberOfDivs; i++) {
+    const maxWidthpx = window.getComputedStyle(container).maxWidth;
+    const maxWidth = Number(maxWidthpx.split("p")[0]);
+    for (let i = 0; i < numberOfDivsOneAxis*numberOfDivsOneAxis; i++) {
         const div = document.createElement("div");
         container.appendChild(div);
+        div.style.height = `${maxWidth/numberOfDivsOneAxis}px`;
+        div.style.width = `${maxWidth/numberOfDivsOneAxis}px`;
     }
 }
 
-function getAllDivs() {
-    return Array.from(document.querySelectorAll(".container div"));
+function getDivsInContainer() {
+    return Array.from(document.querySelectorAll(".container div"));   
+}
+
+function updateTextGridSize(currentGridSize) {
+    const spansGridSize = Array.from(document.querySelectorAll(".grid-size-display"));
+    spansGridSize.forEach(spanGridSize => {
+        spanGridSize.textContent = currentGridSize;
+    });
+
 }
 
 function changeDivColorTo(e, color) {
     const currDiv = e.target;
-    currDiv.setAttribute("style", `background-color: ${color};`);
+    currDiv.style.backgroundColor = color;
 }
 
-function clearAllDivs(e) {
-    const allDivs = getAllDivs();
-    allDivs.forEach(div => {
-        div.style["background-color"] = "white";
-    })
+function removeEventListenersFromDivs() {
+    let currentDivs = getDivsInContainer();
+    let totLength = currentDivs.length;
+    for (let i = 0; i < totLength; i++) {
+        currentDivs[i].replaceWith(currentDivs[i].cloneNode(true));
+    }
+}
+
+function removeAllDivs() {
+    const container = document.querySelector(".container");
+    while (container.firstChild) {
+        container.removeChild(container.lastChild);
+    }
 }
 
 function getRandomNumBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function run() {
-    // mousedown?
-    let mousedownValue = false;
-
-    // rainbow mode?
-    let rainbowMode = false;
-
-    // color?
-    let currentColor = "black";
-
-    let currentGridSize = 16;
-
-    // set up grid
-    createDivsGrid(currentGridSize*currentGridSize);
-    const arrDivs = getAllDivs();
-
-    // color set up
-    pickColorInput = document.getElementsByName("pick-color")[0];
-    pickColorInput.addEventListener("input", e => {
-        rainbowMode = false;
-        currentColor = e.target.value;
-    });
-
-    // grid size set up
-    selectGridSize = document.getElementsByName("grid-range")[0];
-    selectGridSize.addEventListener("input", e => {
-        spansGridSize = Array.from(document.querySelectorAll(".grid-size-display"));
-        spansGridSize.forEach(spanGridSize => {
-            spanGridSize.textContent = e.target.value;
-        });
-    });
-
-    // toggle between mousedown and mouseup
-    arrDivs.forEach(div => div.addEventListener("mousedown", e => {
+function setupDivsMouseDown(currentDivs) {
+    currentDivs.forEach(div => div.addEventListener("mousedown", e => {
         mousedownValue = true;
         if (rainbowMode) {
             const randColor = `rgb(${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)})`;
@@ -68,13 +60,16 @@ function run() {
             changeDivColorTo(e, currentColor);
         }
     }));
+}
 
-    arrDivs.forEach(div => div.addEventListener("mouseup", e => {
+function setupDivsMouseUp(currentDivs) {
+    currentDivs.forEach(div => div.addEventListener("mouseup", e => {
         mousedownValue = false;
     }));
+}
 
-    // color
-    arrDivs.forEach(div => div.addEventListener("mouseenter", e => {
+function setupdDivsMouseEnter(currentDivs) {
+    currentDivs.forEach(div => div.addEventListener("mouseenter", e => {
         if (mousedownValue) {
             if (rainbowMode) {
                 const randColor = `rgb(${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)},${getRandomNumBetween(0, 255)})`;
@@ -84,33 +79,81 @@ function run() {
             }
         }
     }));
+}
 
+function fixDivsDragStart(currentDivs) {
     // fix ondragstart behaviour
-    arrDivs.forEach(div => div.addEventListener("dragstart", e => {
+    currentDivs.forEach(div => div.addEventListener("dragstart", e => {
         e.preventDefault();
     }))
+}
 
-    // setup buttons
+function initialiseDivsEventListeners() {
+    const currentDivs = getDivsInContainer();
+    setupDivsMouseDown(currentDivs);
+    setupDivsMouseUp(currentDivs);
+    setupdDivsMouseEnter(currentDivs);
+    fixDivsDragStart(currentDivs);
+}
+
+function clearAllDivs() {
+    const allDivs = getDivsInContainer();
+    allDivs.forEach(div => {
+        div.style["background-color"] = "white";
+    })
+}
+
+function run() {
+    // variables keeping track of state
+    let currentGridSize = 16;
+
+    // Initial 16 by 16 Grid
+    createGrid(currentGridSize);
+
+    // initialise divs event listeners
+    initialiseDivsEventListeners();
+
+    // set up Grid Size slider + functionality
+    let selectGridSize = document.getElementsByName("grid-range")[0];
+    selectGridSize.addEventListener("input", e => {
+        currentGridSize = e.target.value;
+        updateTextGridSize(currentGridSize);
+        removeEventListenersFromDivs();
+        removeAllDivs();
+        createGrid(currentGridSize);
+        initialiseDivsEventListeners();
+    });
+
+    // color button picker
+    const pickColorInput = document.getElementsByName("pick-color")[0];
+    pickColorInput.addEventListener("input", e => {
+        rainbowMode = false;
+        currentColor = e.target.value;
+    });
+
+    // black color button
     const blackButton = document.querySelector("#black-button");
     blackButton.addEventListener("click", e => {
         currentColor = "black";
         rainbowMode = false;
     });
 
+    // rainbow mode button
     const rainbowButton = document.querySelector("#rainbow-button");
     rainbowButton.addEventListener("click", e => {
         rainbowMode = true;
     });
 
+    // eraser button
     const eraserButton = document.querySelector("#eraser-button");
     eraserButton.addEventListener("click", e => {
         currentColor = "white";
         rainbowMode = false;
     });
 
+    // clear the grid
     const clearButton = document.querySelector("#clear-button");
     clearButton.addEventListener("click", clearAllDivs);
 }
 
 run();
-
