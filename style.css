@@ -24,7 +24,7 @@ body {
 h1 {
     font-size: 64px;
     margin: 0px;
-    padding: 6px 0px;
+    padding: 0px;
 }
 
 /* Main */
@@ -41,6 +41,40 @@ main .top-area-options {
     display: flex;
     gap: 12px;
     padding: 12px 0px;
+}
+
+.pick-color-container label {
+    vertical-align: middle;
+}
+
+.pick-color-container #pick-color {
+    padding: 0px;
+    background: none;
+    border: 0px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.slider-container label {
+    vertical-align: middle;
+}
+
+.slider-container #grid-range {
+    vertical-align: middle;
+    height: 15px;
+    width: 180px;
+    appearance: none;
+    background: #e1dbdb;
+    border-radius: 15px;
+}
+
+.slider-container #grid-range::-webkit-slider-thumb {
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: rgb(137, 168, 168);
+    cursor: pointer;
 }
 
 .pick-color-container, .select-btn, .slider-container {
@@ -64,6 +98,7 @@ main .top-area-options {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;;
     color: #1c1616;
     font-size: 16px;
+    cursor: pointer;
 }
 
 main .container {
